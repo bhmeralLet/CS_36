@@ -1,0 +1,70 @@
+ char myChar;
+    printf("Enter a character");
+    scanf_s("%c", &myChar);
+
+
+    switch (myChar) {
+        case 'a':
+        case 'A':
+        case 'e':
+        case 'E':
+        case 'i':
+        case 'I':
+        case 'o':
+        case 'O':
+        case 'u':
+        case 'U':
+            printf("Vowel");
+            break;
+        case 'Y':
+        case 'y':
+            printf("Sometimes");
+            break;
+        default:
+            printf("Consonant");
+            break;
+    }
+
+
+
+    /*
+     defining char
+     char name;
+     asking user to enter
+     printf("your own words");
+     getting input from the user and initializing
+     scanf_s("%c", &name);
+     then comparing the character user entered with the cases (is it vowel letter or constant) on switch
+     switch(name){
+        checking for vowels
+        case 'a':
+        case 'A':
+        case 'b':
+        case 'B':
+        ...  all the vowel letters
+        then printing the message
+            printf("Vowel");
+        checking for Y
+        case 'y':
+        case 'Y':
+            printf("Sometimes");
+            break;
+        and declaring default for all other letters and printing constant
+        default:
+            printf("Constant");
+            break;
+     }
+        and the syntax of the switch statement
+        switch(expression){
+            case constant1:
+                ...
+                break;
+            case constant2:
+                ...
+                break;
+
+            default:
+                ...
+                break;
+        }
+    */

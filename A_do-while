@@ -1,0 +1,24 @@
+    int firstValue;
+    int secondValue;
+
+
+    do {
+        printf("Please enter an integer.");
+        scanf_s("%d", &firstValue);
+        printf("Entered value is %d\n", firstValue);
+        printf("Please enter another integer value.\n");
+        scanf_s("%d", &secondValue);
+    }while(secondValue > firstValue);
+
+
+    // SAMPLE OUTPUT
+    /*
+    Please enter an integer.10
+    Entered value is 10
+    Please enter another integer value.
+    11
+    Please enter an integer.5
+    Entered value is 5
+    Please enter another integer value.
+    4
+     */
