@@ -1,0 +1,62 @@
+#include <stdio.h>
+int main() {
+
+
+    int employee_sHoursWorked[5];
+    double employee_sHourlyRate[5];
+    double employee_sOverTimePaid[5];
+    double employee_sGrossPaid[5];
+    double employee_sTaxPaid[5];
+    double employee_sAmountAfterTax[5];
+    char employee_sNames[5];
+    char employeeName[20];
+
+    int count = 0;
+
+
+
+
+    for(unsigned int employee = 0; employee <= 4; employee++){
+        printf("Enter the employee name:");
+        scanf_s("%s", employeeName,sizeof(employeeName));
+        printf("Enter hours worked:");
+        scanf_s("%d",&employee_sHoursWorked[employee]);
+        printf("Enter the hourly rate:");
+        scanf_s("%lf",&employee_sHourlyRate[employee]);
+
+
+        if(employeeName == "-1" || employee_sHoursWorked[employee] == -1 || employee_sHourlyRate[employee] == -1){
+            employee_sGrossPaid[employee] = 0;
+            employee_sTaxPaid[employee] = 0;
+            employee_sAmountAfterTax[employee] = 0;
+            employee_sOverTimePaid[employee] = 0;
+            break;
+        }
+        count++;
+
+        if(employee_sHoursWorked[employee] > 40){
+            employee_sOverTimePaid[employee] = (employee_sHoursWorked[employee] - 40) * 1.5 * employee_sHourlyRate[employee];
+        }else{
+            employee_sOverTimePaid[employee] = 0;
+        }
+
+
+        employee_sNames[employee] = employeeName;
+        employee_sGrossPaid[employee] = employee_sHourlyRate[employee] * employee_sHoursWorked[employee] + employee_sOverTimePaid[employee];
+        employee_sTaxPaid[employee] = employee_sGrossPaid[employee] * 0.20;
+        employee_sAmountAfterTax[employee] = employee_sGrossPaid[employee] - employee_sTaxPaid[employee];
+
+    }
+
+    for(unsigned int employee = 0; employee < count; employee++){
+
+        printf("\nPay to: %s",employee_sNames[employee]);
+        printf("\nHours worked: %d", employee_sHoursWorked[employee]);
+        printf("\nHourly rate: %0.2f",employee_sHourlyRate[employee]);
+        printf("\nGross paid: $%0.2lf", employee_sGrossPaid[employee]);
+        printf("\nOver paid: $%0.2lf",employee_sOverTimePaid[employee]);
+        printf("\nTaxes paid: $%0.2lf",employee_sTaxPaid[employee]);
+        printf("\nTake home: $%0.2lf",employee_sAmountAfterTax[employee]);
+    }
+
+}

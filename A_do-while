@@ -8,7 +8,7 @@
         printf("Entered value is %d\n", firstValue);
         printf("Please enter another integer value.\n");
         scanf_s("%d", &secondValue);
-    }while(secondValue > firstValue);
+    }while(secondValue > firstValue || );
 
 
     // SAMPLE OUTPUT

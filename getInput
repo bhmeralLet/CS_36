@@ -1,0 +1,13 @@
+int guessGame(int chosenNumber){
+    int guessedNumber;
+    puts("Can you guess the number I chosen:");
+    scanf_s("%d",&guessedNumber);
+    if(guessedNumber == chosenNumber){
+        return 0;
+    }else if(guessedNumber > chosenNumber){
+        return 1;
+    }else{
+        return -1;
+    }
+}
+    printf("%d", guessGame(10));
