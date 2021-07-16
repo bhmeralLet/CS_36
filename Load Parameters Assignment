@@ -1,0 +1,30 @@
+char loadParameters(int* var1, int* var2){
+
+    int firstInteger;
+    int secondInteger;
+    printf("Enter the first integer:");
+    scanf_s("%d",&firstInteger);
+    printf("Enter the second integer:");
+    scanf_s("%d",&secondInteger);
+    *var1 = firstInteger;
+    *var2 = secondInteger;
+
+    char userCharacter;
+    printf("Enter a character:");
+    scanf(" %c",&userCharacter);
+
+    return userCharacter + firstInteger + secondInteger;
+}
+
+
+int main() {
+
+    int number_1;
+    int number_2;
+    char character;
+    character = loadParameters(&number_1,&number_2);
+    printf("Entered first integer: %d\n", number_1);
+    printf("Entered second integer: %d\n", number_2);
+    printf("The character you get: %c\n", character);
+
+}
