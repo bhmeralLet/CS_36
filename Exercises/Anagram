@@ -1,0 +1,38 @@
+#include <string.h>
+#include <ctype.h>
+
+   int flag = 0;
+    printf("Enter the first word:");
+    char firstWord[20];
+    scanf("%s",firstWord);
+    printf("Enter the second word:");
+    char secondWord[20];
+    scanf("%s",secondWord);
+    int firstArray = 0;
+    int secondArray = 0;
+
+    for (int i = 0; i < strlen(firstWord); ++i) {
+        tolower(firstWord[i]);
+    }
+    for (int i = 0; i < strlen(secondWord); ++i) {
+        tolower(secondWord[i]);
+    }
+
+    if(strlen(firstWord) != strlen(secondWord)){
+        printf("Not anagram");
+        flag = 1;
+    }
+    int index = 0;
+    while(1 && flag != 1){
+        firstArray += firstWord[index];
+        secondArray += secondWord[index];
+        index++;
+        if(index - 1 == strlen(firstWord)){
+            if(secondArray == firstArray){
+                printf("Anagram");
+            }else{
+                printf("Not Anagram");
+            }
+            break;
+        }
+    }

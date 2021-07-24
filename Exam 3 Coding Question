@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+int getPlayerCount(){
+    int playerCount = 0;
+    printf("Enter the amount of player count..");
+    scanf("%d",&playerCount);
+    if(playerCount > 10){
+        printf("You can't have more than 10 players..");
+        printf("Setting the player count to 10..");
+        playerCount = 10;
+    }
+    return playerCount;
+}
+
+void assignPlayerScores(int *playerScore){
+    srand(time(NULL));
+    int randomizer = rand() % 20;
+    if(randomizer >= 10){
+        (*playerScore) = 10;
+    }else if(randomizer <= 9 && randomizer >= 5){
+        (*playerScore) = rand() % 5;
+    }else{
+        (*playerScore) = 1;
+    }
+}
+
+int determineWinner(int *playerScore){
+    int max = -299999;
+    int index = 0;
+    int score = *playerScore;
+    if(score > max){
+        index++;
+    }
+    return index;
+}
+
+
+int main()
+{
+    int playerScores[10];
+    int winner = 0;
+    int playerCount = getPlayerCount();
+    for(int player = 0; player < playerCount; player++){
+        assignPlayerScores(&playerScores[player]);
+    }
+    for(int player = 0; player < playerCount; player++){
+      winner =  determineWinner(&playerScores[player]);
+      printf("%d\n",playerScores[player]);
+    }
+    printf("Player %d has won the game, no one else scored higher.\n", winner);
+    return 0;
+}

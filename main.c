@@ -1,149 +1,216 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-/**
- * This method will ask user to input the employees info
- * Using the pointers on the parameters to use pass by reference. Getting the memory location of parameters
- * and pointing to the value on memory location then initializing the inputted values to the value that we got from the memory location.
- * @param hoursWorked - total number of hours worked
- * @param hourlyRate - amount of payment employee gets by hour
- * @param employeeName - name of the employee
- */
-void userInput(int* hoursWorked,double* hourlyRate,char employeeName [][20]){
-
-    int hours;
-    double rate;
-
-    printf("Enter name of the employee:");
-    scanf_s("%s",employeeName[0], sizeof(employeeName[0]));
-    printf("Enter hours worked:");
-    scanf_s("%d",&hours);
-    printf("Enter hourly rate:");
-    scanf_s("%lf",&rate);
-
-    *hoursWorked = hours;
-    *hourlyRate = rate;
-}
-
-/**
- * Creating a structure hold several data and wrapping grossPayment and overTimePayment
- *
- */
-struct Payment{
-    double grossPayment, overTimePayment;
-};
-
-
-/**
- * Using the Payment structure we declare to return multiple values at the same time
- * This method will calculate the employees gross payment (amount of money before tax)
- * and over time payment.
- * @param hoursWorked - amount of hours employee worked
- * @param hourlyRate - amount of money employee gets by hour
- * @return payment - calculated gross payment and over time payment
- */
-
-struct Payment calculateGrossPaid(int hoursWorked, double hourlyRate){
-
+struct Employee{
+    char employeeName[20];
+    int employeeHoursWorked;
+    double employeeHourlyRate;
     double grossPayment;
     double overTimePayment;
+    double taxPaid;
+};
 
-    if(hoursWorked > 40){
-        overTimePayment = ((hoursWorked) - 40) * 1.5 * (hourlyRate);
+void loadEmployee(struct Employee *employee){
+    printf("Enter the employee name:");
+    scanf("%s", employee->employeeName);
+    printf("Enter the hourly rate:");
+    scanf("%lf", &employee->employeeHourlyRate);
+    printf("Enter hours worked:");
+    scanf("%d",&employee->employeeHoursWorked);
+
+}
+void printEmployeeData(struct Employee *employee){
+    printf("\nEmployee name:%s\n",employee->employeeName);
+    printf("Hours worked:%d\n",employee->employeeHoursWorked);
+    printf("Hourly rate:$%0.2f\n",employee->employeeHourlyRate);
+    printf("Gross paid:$%0.2f\n",employee->grossPayment);
+    printf("Overtime paid:$%0.2f\n",employee->overTimePayment);
+    printf("Tax paid:$%0.2f\n",employee->taxPaid);
+}
+
+void printAllEmployeeData(struct Employee *employee){
+    printf("\nEmployee name:%s\n",employee->employeeName);
+    printf("Hours worked:%d\n",employee->employeeHoursWorked);
+    printf("Hourly rate:$%0.2f\n",employee->employeeHourlyRate);
+    printf("Gross paid:$%0.2f\n",employee->grossPayment);
+}
+
+
+ int loadMenu(){
+    int choice;
+    printf("Enter the operation number you want to do.");
+    printf("\n1.Enter employee data.");
+    printf("\n2.Display employee data.");
+    printf("\n3.Display all employee data.");
+    printf("\n4.Edit an employee data.");
+    printf("\n0.Quit the application\n");
+    scanf_s("%d",&choice);
+    if(choice < 0 || choice > 4){
+        printf("Cannot respond to given choice..\n");
+        printf("Quitting the application...");
+        exit(0);
+    }
+    return choice;
+}
+
+void payment(struct Employee *employee){
+
+    if((employee->employeeHoursWorked) > 40){
+        employee->overTimePayment = ((employee->employeeHoursWorked) - 40) * 1.5 * (employee->employeeHourlyRate);
     }else{
-        overTimePayment = 0;
+        employee->overTimePayment = 0;
     }
-
-    grossPayment = ((hoursWorked) * (hourlyRate)) + overTimePayment;
-
-    struct Payment payment = {grossPayment,overTimePayment};
-    return payment;
-}
-
-/**
- * This method will calculate the amount of tax money
- * @param grossPayment - employees gross payment
- * @return amount of tax money
- */
-double calculateTax(double grossPayment){
-
-    return grossPayment * 0.20;
+    employee->grossPayment = (employee->employeeHoursWorked) * (employee->employeeHourlyRate) + employee->overTimePayment;
+    employee->taxPaid = (employee->grossPayment) * .2;
 }
 
 
-/**
- *  This method will output the employee info.
- * @param employeeName - name of the employee
- * @param hoursWorked - total number of hours employee worked
- * @param employeeHourlyRate - amount of payment employee gets by hour
- * @param payment - payment for the employee
- */
+int main(){
 
-void outputEmployeeInfo(char employeeName[][20], int hoursWorked[], double employeeHourlyRate[], struct Payment payment){
-    payment = calculateGrossPaid(hoursWorked[0], employeeHourlyRate[0]);
+    struct Employee employees[5];
+    int employeeIndex;
+    int flag = 0;
+    int loopIndex = 0;
+    int choice;
+    do{
+        choice = loadMenu();
+        switch (choice) {
+            case 0:
+                printf("Quitting the application..");
+                flag = 1;
+                break;
+            case 1:
+                loadEmployee(&employees[loopIndex]);
+                payment(&employees[loopIndex]);
+                loopIndex++;
+                break;
+            case 2:
+                printf("Enter the index of the employee..");
+                scanf("%d",&employeeIndex);
+                if(employeeIndex > (sizeof (employees) / sizeof(struct Employee)) || employeeIndex < 0){
+                    printf("You don't have any employee's at this index..");
+                    printf("Returning to the main menu..");
+                    break;
+                }else{
+                    printEmployeeData(&employees[employeeIndex]);
+                }
+                break;
+            case 3:
+                printf("Printing all employee's summary data");
+                for (int employee = 0; employee < loopIndex; ++employee) {
+                    if(loopIndex == 0){
+                        printf("There is no employee data on the system yet.");
+                        printf(" Returning to the main menu.\n");
+                        break;
+                    }else{
+                        printAllEmployeeData(&employees[employee]);
+                    }
+                }
+                break;
+            case 4:
+                printf("\nEnter the index of the employee you want to edit..");
+                scanf("%d",&employeeIndex);
+                if(employeeIndex > (sizeof (employees) / sizeof(struct Employee)) || employeeIndex < 0){
+                    printf("You don't have any employee's at this index..");
+                    printf("Returning to the main menu..");
+                    break;
+                }else{
+                    int editIndex;
+                    printf("Employees data:\n");
+                    printEmployeeData(&employees[employeeIndex]);
+                    printf("Enter the number next to field you want to edit..\n");
+                    printf("1-Name, 2-Hours worked, 3-Hourly rate, 4-Gross payment\n");
+                    scanf("%d",&editIndex);
+                    switch (editIndex) {
+                        printf("Editting...");
+                        case 1:
+                            printf("Enter the employee name:");
+                            scanf("%s", employees[employeeIndex].employeeName);
+                            break;
+                        case 2:
+                            printf("Enter the hourly rate:");
+                            scanf("%lf", &employees[employeeIndex].employeeHourlyRate);
+                            break;
+                        case 3:
+                            printf("Enter hours worked:");
+                            scanf("%d",&employees[employeeIndex].employeeHoursWorked);
+                            break;
+                        case 4:
+                            printf("Enter gross payment:");
+                            scanf("%lf",&employees[employeeIndex].grossPayment);
+                            break;
+                        default:
+                            printf("\nWhoops. Didnt get that one.\n");
+                            break;
+                    }
+                    printf("Edited employee data:\n");
+                    printEmployeeData(&employees[employeeIndex]);
+                }
+        }
+    }while(flag != 1 || (loopIndex + 1 != 5));
 
-    printf("Pay to: %s\n", employeeName[0]);
-    printf("Hours worked: %d\n", hoursWorked[0]);
-    printf("Hourly rate: $%.02f\n", employeeHourlyRate[0]);
-    printf("Gross Pay: $%0.2f\n", payment.grossPayment);
-    printf("Base Pay: $%0.2f\n", (payment.grossPayment - payment.overTimePayment));
-    printf("Overtime Pay: $%0.2f\n",payment.overTimePayment);
-    printf("Taxes Paid: $%0.2f\n", calculateTax(payment.grossPayment));
-    printf("Base Payment: $%0.2f\n", payment.grossPayment  - calculateTax(payment.grossPayment));
-
-}
 
 
-int main() {
-
-    char employee_sNames[5][20];
-    int employee_sHoursWorked[5];
-    double employee_sHourlyRate[5];
-    double totalPayToEmployees = 0;
 
 
-    for(int employee = 0; employee < 2; employee++){
-        // asking user to input the employees info and then pointing to the declared arrays
-        userInput(&employee_sHoursWorked[employee],&employee_sHourlyRate[employee], &employee_sNames[employee]);
-    }
 
 
-    for(int employee = 0; employee < 2; employee++){
-        // declaring and initializing the payment to use in the outputEmployeeInfo
-        struct Payment payment = calculateGrossPaid(employee_sHoursWorked[employee],employee_sHourlyRate[employee]);
-        // outputting employee infos (name, hours worked, hourly rate, payment, overpay, tax, net pay)
-        outputEmployeeInfo(&employee_sNames[employee],&employee_sHoursWorked[employee],&employee_sHourlyRate[employee],payment);
-        // adding the gross payment of each employee for calculating total pay to all employees
-        totalPayToEmployees += payment.grossPayment;
-    }
-    // printing out the total payment to all employees
-    printf("Total Paid To Employees: $%0.2f", totalPayToEmployees);
 
-}
-            // Sample Output
-            /*
-                Enter name of the employee:baha
-                Enter hours worked:30
-                Enter hourly rate:100
-                Enter name of the employee:nazmi
-                Enter hours worked:14
-                Enter hourly rate:50
-                Pay to: baha
-                Hours worked: 30
-                Hourly rate: $100.00
-                Gross Pay: $3000.00
-                Base Pay: $3000.00
-                Overtime Pay: $0.00
-                Taxes Paid: $600.00
-                Base Payment: $2400.00
-                Pay to: nazmi
-                Hours worked: 14
-                Hourly rate: $50.00
-                Gross Pay: $700.00
-                Base Pay: $700.00
-                Overtime Pay: $0.00
-                Taxes Paid: $140.00
-                Base Payment: $560.00
-                Total Paid To Employees: $3700.00
-                Process finished with exit code 0
-             */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//void getData(char name[][20],float rate[],float hours[]){
+//    int index =  0;
+//    printf("Name:");
+//    scanf_s("%s",name[index],20);
+//    printf("Rate:");
+//    scanf("%f",&rate[index]);
+//    printf("Hours");
+//    scanf("%f",&hours[index]);
+//    index++;
+//}
+//
+//
+//
+//char names[5][20];
+//float rate[5];
+//float hours[5];
+//for (int i = 0; i < 4; i++) {
+//getData(&names[i],&rate[i],&hours[i]);
+//printf("\nname: %s\n",names[i]);
+//printf("rate: %0.2f\n",rate[i]);
+//printf("hours: %0.2f\n",hours[i]);
+//
+//}
