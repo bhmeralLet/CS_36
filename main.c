@@ -43,7 +43,7 @@ void printEmployeeData(struct Employee *employee){
  * printAllEmployeeData - It will print employee's data in a summary view, accessing employee's data with employee pointer;
  * even though it is named printAllEmployeeData it just prints one employee's data in a summary view.
  * We call the method inside the loop to print all employee data iterating through employees[].
- * @param employee
+ * @param employee - pointer to struct Employee
  */
 void printAllEmployeeData(struct Employee *employee){
     printf("\nEmployee name:%s\n",employee->employeeName);
@@ -73,6 +73,10 @@ void printAllEmployeeData(struct Employee *employee){
     return choice;
 }
 
+/**
+ * payment() - It will calculate the gross paid, overtime paid and tax paid for the employee
+ * @param employee - pointer to struct Employee
+ */
 void payment(struct Employee *employee){
 
     if((employee->employeeHoursWorked) > 40){
@@ -88,9 +92,14 @@ int main() {
 
     struct Employee employees[5];
     int employeeIndex;
-    int flag = 0;
     int loopIndex = 0;
     int choice;
+    /**
+     * Using do while loop to show menu options after an operation
+     * Showing the user menu of options and asking which one user wants to do
+     * then returning the chosen operation as an integer and using in the switch
+     * Based on the chosen operation
+     */
     do {
         choice = loadMenu();
         switch (choice) {
@@ -165,7 +174,7 @@ int main() {
                     printEmployeeData(&employees[employeeIndex]);
                 }
         }
-    } while ((loopIndex + 1 != 5));
+    } while (loopIndex + 1 != (sizeof(employees) / sizeof(struct Employee)));
 
 }
 
