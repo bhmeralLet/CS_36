@@ -170,6 +170,9 @@ int main() {
                             printf("\nWhoops. Didnt get that one.\n");
                             break;
                     }
+                    if(editIndex == 2 || editIndex == 3){
+                        payment(&employees[employeeIndex]);
+                    }
                     printf("Edited employee data:");
                     printEmployeeData(&employees[employeeIndex]);
                 }
