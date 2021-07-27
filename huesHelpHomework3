@@ -1,0 +1,188 @@
+#include <stdio.h>
+#include <string.h>
+
+
+/**
+ * When you pass an array as a parameter to a function it will be passed as pointer so there is no need to make
+ * parameters array of pointers unless you want to hold pointer which we are not trying to here.
+ * so no need to have pointer for char name.
+ * And for the hourly_rate and hours_worked we don't need arrays
+ * since we don't want array of pointers we just need pointer.
+ *
+ * with this changes you the method parameters you also need to change the code inside the function
+ * since they are not array you cannot do hourly_rate[i]
+ * you are just gonna pass it to scanf as hourly_rate you don't need & since you already passing a memory location
+ * and when we do hourly_rate we just referencing to the pointer and assigning a value at that memory location
+ * float *hourly_rate = xAb049bfx (some memory location)
+ * *hourly_rate = 10;
+ * with this we just storing 10 at the memory location xAb049bfx (*hourly_rate).
+ * when you print *hourly_rate you will get a 10.
+ *
+ * you can use break statement only in switch or loops can't use in if statements
+ *
+ * since hours_worked and hourly_rate are no longer arrays you can't index and compare if they are -1
+ * you need to dereference the pointer hours_worked -> *hours_worked == -1;
+ * with *hours_worked you will get the data stored in the float* hours_worked
+ *
+ * other than this issues the method is good.
+ * the method syntax should be like employeeInfo(char name[][20], float* hourly_rate, float* hours_worked)
+ *
+ * when using name when comparing and initializing you can use name[0] it will work fine
+ *
+ */
+void employeeInfo(float* hourly_rate, float* hours_worked, char name[][20]) {
+    printf("Enter name: ");
+    scanf("%s", name[0]);
+
+    printf("Enter hourly rate: ");
+    scanf("%f", hourly_rate);
+
+    printf("Enter hours worked: ");
+    scanf("%f", hours_worked);
+    printf("\n");
+
+}
+/**
+ * you need to declare the variables before using.
+ * since none of the variables are arrays you cannot index through them. (can't do this hourly_rate[e])
+ *
+ * and when comparing the hours_worked with 40 you need to dereference the pointer
+ * otherwise you will be comparing a memory location to an integer
+ * so it should be like this if(*hours_worked > 40)
+ * *hours_worked = the data stored in float* hours_worked
+ *
+ * calculations are fine
+ *
+ * you need to change the method's return type to float and return the gross_pay so that you can access and use it
+ *
+ * so in order for you to get base_pay and overtime_pay you either need you use struct which might be hard.
+ * or just create other methods to calculate them
+ */
+
+/*
+ * float overTimePay(float* hourly_rate, float* hours_worked){
+ *       if (*hours_worked > 40) {
+ *        overtime_pay = (*hours_worked - 40) * (*hourly_rate) * 1.5;
+ *       } else {
+            overtime_pay = 0;
+        }
+ * }
+ */
+
+//creating a function to calculate the base, gross and overtime pay for employees
+float employeeGrossBaseOvertime(float* hourly_rate, float* hours_worked) {
+    float base_pay = 0;
+    float overtime_pay = 0;
+    float gross_pay = 0;
+
+    if (*hours_worked > 40) {
+        base_pay = 40 * (*hourly_rate);
+        overtime_pay = (*hours_worked - 40) * (*hourly_rate) * 1.5;
+    } else {
+        base_pay = (*hourly_rate) * (*hours_worked);
+        overtime_pay = 0;
+    }
+
+    gross_pay = base_pay + overtime_pay;
+    return gross_pay;
+}
+
+// like in the employeeInfo() method we don't need array of pointers only pointer
+// since they are not arrays you can't index through a float.
+// since the method only is for tax and you can only return tax there is no need to declare any variable other than tax.
+// creating a function to calculate the amount of taxes per employee
+float employeeTax(float* gross_pay) {
+    float taxes = *gross_pay * .2;
+    return taxes;
+}
+
+/**
+ * in order to access the variables you need have them some where and it should be in parameters in our case
+ * so you need to have all variables you want print or access is should be as function's parameters
+ * printData(char name[][20], float hours_worked[], float hourly_rate[],float gross_pay[],float taxes[],etc.)
+ * i prefer not use loops cause it is easier to debug and see but it is up to you.
+ */
+void printData(char name[][20], float hours_worked[], float hourly_rate[], float gross_pay[], float taxes[]) {
+    printf("\nPay to: %s \n", name[0]);
+    printf("Hours worked: %0.2f \n", hours_worked[0]);
+    printf("Hourly rate: %0.2f \n", hourly_rate[0]);
+    printf("Gross pay: %0.2f \n", gross_pay[0]);
+    printf("Taxes paid: %0.2f \n", taxes[0]);
+
+}
+
+/**
+ * need to add a parameter to access the employee's gross_pay as parameter (float gross_pay[])
+ * declaring totalGross variable and initializing it to use
+ *  returning totalGross to use while printing the total gross pay to all employees
+ */
+float totalEmployeeGross(float gross_pay[]) {
+    float totalGross = 0;
+    for (int e = 0; e < 5; e++) {
+        totalGross += gross_pay[e];
+    }
+    return totalGross;
+}
+
+//---------------------------------------------------------------------------------------------------
+int main() {
+//initializing all needed variables in this project
+
+    char name[5][20];
+    float hours_worked[5];
+    float hourly_rate[5];
+    float gross_pay[5];
+    float base_pay[5];
+    float overtime_pay[5];
+    float taxes[5];
+    float net_pay[5];
+    float totalGross = 0;
+    int empIter = 0;
+
+    /*
+     * creating a for loop to ask employees info and giving enough size to iterate the arrays
+     */
+    for (int employee = 0; employee < 5; employee++) {
+        employeeInfo(&hourly_rate[employee], &hours_worked[employee], &name[employee]);
+        /*
+         * this is how I checked if the user enters -1 you can find any other if you want.
+         * after the employees information is entered checking whether any of the entered information is -1.
+         * and if it is -1 using break to get out of the loop
+         * if you want you can initialize the employee's at the employee index so it won't look garbage
+         */
+
+        if (strcmp(name[0], "-1") == 0 || hourly_rate[employee] == -1 || hours_worked[employee] == -1) {
+            break;
+        }
+        empIter++; // increasing this variable every time we successfully entered data
+        // we are going to use this variable as our second loop variable so that we won't
+        // output the other employees after user enters -1
+        // if we don't use this to control second loop (printing info loop) it will print
+        // garbage data because we couldn't entered any user info after the -1.
+
+        gross_pay[employee] = employeeGrossBaseOvertime(&hourly_rate[employee], &hours_worked[employee]);
+        taxes[employee] = employeeTax(&gross_pay[employee]);
+
+        // for assigning other variables you need to adjust your method, add new method or directly calculate them here
+        // and assign
+
+        // adding the gross payment off the employee to all employee gross payment
+        totalGross += gross_pay[employee];
+    }
+
+    /*
+     * using the empIter that we declare and increased so that we don't print the employees that we didnt entered.
+     */
+    for (int employee = 0; employee < empIter; employee++) {
+        printData(&name[employee], &hours_worked[employee], &hourly_rate[employee], &gross_pay[employee],
+                  &taxes[employee]);
+        /*
+         * for printing other data you can adjust the method's or directly do them in here
+         */
+    }
+
+
+
+
+}
+
