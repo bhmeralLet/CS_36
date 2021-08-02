@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+    FILE* userFile;
+    char fileName[25];
+    char line[80];
+    printf("Enter the name of file name including .txt at the end\n");
+    scanf_s(" %s", fileName, 25);
+    if ((userFile = fopen(fileName, "w")) == NULL) {
+        printf("File cannot be opened.");
+        exit(0);
+    }
+
+    while (line[0] != '0') {
+        printf("Enter what you want to write to text file...\n");
+        scanf("%s", line);
+        if (line[0] == '0') {
+            fclose(userFile);
+            break;
+        }
+        fprintf(userFile, "%s\n", line);
+        puts(line);
+
+    }
+
+
+}
