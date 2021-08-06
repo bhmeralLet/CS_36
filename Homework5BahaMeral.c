@@ -140,9 +140,9 @@ int employeeEntry(struct Employee employees[], int arraySize) {
 
             fseek(employeeFile, 0, SEEK_SET);
 
-             /**
-              * checking whether the file is formatted the way we want
-              */
+            /**
+             * checking whether the file is formatted the way we want
+             */
 
             if (employees[0].employeeName[0] < 65 || employees[0].employeeName[0] > 122) {
                 puts("File is not ordered..");

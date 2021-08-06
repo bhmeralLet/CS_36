@@ -1,0 +1,39 @@
+void fun(int a){printf("Value of a is %d\n",a);}
+
+int Hello(){return 0;}
+
+void fun1() { printf ("Fun1\n");}
+void fun2() { printf ("Fun2\n");}
+
+void wrapper(void (*fun)()){ fun();}
+
+void add(int a, int b){
+    printf("Addition is %d\n", a + b);
+}
+void subtract(int a, int b){
+    printf("Subtraction is %d\n", a - b);
+}
+void multiply(int a, int b){
+    printf("Multiplication is %d\n", a * b);
+}
+
+
+
+   void (*fun_ptr)(int) = &fun;
+   (*fun_ptr)(10);
+
+   void (*fun_ptr_1)(int) = fun;
+   fun_ptr_1(33);
+
+    int (*hello_ptr)(void);
+    hello_ptr = Hello;
+    printf("%d\n",hello_ptr());
+
+    wrapper(fun1);
+    wrapper(fun2);
+
+    void(*fun_ptr_arr[])(int,int) = {add,multiply,subtract};
+    int ch, a = 15, b = 10;
+    printf("Enter Choice: 0 for add, 1 for subtract and 2 for multiply\n");
+    scanf("%d",&ch);
+    fun_ptr_arr[ch](a,b);

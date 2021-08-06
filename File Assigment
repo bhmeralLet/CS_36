@@ -27,3 +27,30 @@ int main() {
 
 
 }
+
+
+
+
+========================================
+#include <stdio.h>
+
+
+int main() {
+
+    char nameOfFile[35];
+    char userInput[100];
+
+    printf("Please write of your file.");
+    scanf_s("%s",nameOfFile,35);
+    FILE* fp = fopen(nameOfFile,"w");
+    while((getchar()) != '\n');
+    while(1){
+        printf("Enter what you want on the file.");
+        scanf("%[^\n]s",userInput);
+        if(userInput[0] == '0'){
+            break;
+        }
+        fprintf(fp,"%s", userInput);
+
+    }
+}
