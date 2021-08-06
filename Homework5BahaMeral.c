@@ -322,3 +322,205 @@ int main() {
     } while (1);
 
 }
+
+/*
+
+Enter the operation number you want to do.
+1.Enter employee data.
+2.Display employee data.
+3.Display all employee data.
+4.Edit an employee data.
+0.Quit the application
+1
+Please enter which way you want to upload employee data.
+Uploading with file enter f      Uploading with keyboard enter k
+f
+Enter the name of the file including .txt:employees.txt
+Enter the operation number you want to do.
+1.Enter employee data.
+2.Display employee data.
+3.Display all employee data.
+4.Edit an employee data.
+0.Quit the application
+3
+Printing all employee's summary data
+
+Employee name:baha
+Hours worked:100
+Hourly rate:$45.00
+Gross paid:$8550.00
+
+Employee name:cemo
+Hours worked:100
+Hourly rate:$200.00
+Gross paid:$38000.00
+
+Employee name:cemoli
+Hours worked:7
+Hourly rate:$87.00
+Gross paid:$609.00
+
+Employee name:nacmiye
+Hours worked:100
+Hourly rate:$90.00
+Gross paid:$17100.00
+
+Employee name:nacmi
+Hours worked:100
+Hourly rate:$50.00
+Gross paid:$9500.00
+
+Employee name:keltos
+Hours worked:30
+Hourly rate:$55.00
+Gross paid:$1650.00
+
+Employee name:necmi
+Hours worked:50
+Hourly rate:$50.00
+Gross paid:$3250.00
+
+Employee name:nacmi
+Hours worked:100
+Hourly rate:$30.00
+Gross paid:$5700.00
+
+Employee name:nazmiye
+Hours worked:10
+Hourly rate:$30.00
+Gross paid:$300.00
+
+Employee name:nazmi
+Hours worked:100
+Hourly rate:$100000.00
+Gross paid:$19000000.00
+Enter the operation number you want to do.
+1.Enter employee data.
+2.Display employee data.
+3.Display all employee data.
+4.Edit an employee data.
+0.Quit the application
+2
+Enter the index of the employee..
+0
+
+Employee name:baha
+Hours worked:100
+Hourly rate:$45.00
+Gross paid:$8550.00
+Overtime paid:$4050.00
+Tax paid:$1710.00
+Enter the operation number you want to do.
+1.Enter employee data.
+2.Display employee data.
+3.Display all employee data.
+4.Edit an employee data.
+0.Quit the application
+4
+Enter the index of the employee you want to edit..
+0
+Employees data:
+
+Employee name:baha
+Hours worked:100
+Hourly rate:$45.00
+Gross paid:$8550.00
+Overtime paid:$4050.00
+Tax paid:$1710.00
+Enter the number next to field you want to edit..
+1-Name, 2-Hourly rate, 3-Hours worked, 4-Gross payment
+1
+Enter the employee name:
+nedirsin
+Edited employee data:
+
+Employee name:nedirsin
+Hours worked:100
+Hourly rate:$45.00
+Gross paid:$8550.00
+Overtime paid:$4050.00
+Tax paid:$1710.00
+Enter the operation number you want to do.
+1.Enter employee data.
+2.Display employee data.
+3.Display all employee data.
+4.Edit an employee data.
+0.Quit the application
+0
+Before exiting the application enter the file you want to save the data's
+employees.txt
+Quitting the application..
+
+Process finished with exit code 0
+ */
+
+/*
+
+ After qutting the application
+
+nedirsin
+100
+45.000000
+cemo
+100
+200.000000
+cemoli
+7
+87.000000
+nacmiye
+100
+90.000000
+nacmi
+100
+50.000000
+keltos
+30
+55.000000
+necmi
+50
+50.000000
+nacmi
+100
+30.000000
+nazmiye
+10
+30.000000
+nazmi
+100
+100000.000000
+
+
+ before the application
+baha
+100
+45
+cemo
+100
+200
+cemoli
+7
+87
+nacmiye
+100
+90
+nacmi
+100
+50
+keltos
+30
+55
+necmi
+50
+50
+nacmi
+100
+30
+nazmiye
+10
+30
+nazmi
+100
+100000
+ */
+
+
